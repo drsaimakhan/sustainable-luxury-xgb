@@ -1,0 +1,69 @@
+name: Mirror Kaggle Notebook
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "0 12 * * 1,4"   # Mon & Thu at 12:00 UTC (change as you like)
+
+env:
+  KAGGLE_KERNEL: "saimakhan6/sustainable-luxury-purchase-prediction-xg-boost"
+  NOTEBOOK_DEST: "notebooks"
+  ASSETS_DEST: "assets"
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Kaggle CLI
+        run: |
+          python -m pip install --upgrade pip
+          pip install kaggle
+
+      - name: Configure Kaggle credentials
+        run: |
+          mkdir -p ~/.kaggle
+          echo '{"username":"'"${{ secrets.KAGGLE_USERNAME }}"'","key":"'"${{ secrets.KAGGLE_KEY }}"'"}' > ~/.kaggle/kaggle.json
+          chmod 600 ~/.kaggle/kaggle.json
+
+      - name: Ensure folders exist
+        run: |
+          mkdir -p "$NOTEBOOK_DEST" "$ASSETS_DEST"
+
+      - name: Pull latest notebook (.ipynb) + metadata
+        run: |
+          kaggle kernels pull "$KAGGLE_KERNEL" -p "$NOTEBOOK_DEST" --metadata --force
+          # Optional rename example:
+          # mv "$NOTEBOOK_DEST"/sustainable-luxury-purchase-prediction-xg-boost.ipynb \
+          #    "$NOTEBOOK_DEST"/Sustainable_Luxury_Purchase_Prediction_XGBoost.ipynb || true
+
+      - name: Download latest Outputs (plots, etc.)
+        run: |
+          mkdir -p .kaggle_outputs
+          kaggle kernels output "$KAGGLE_KERNEL" -p .kaggle_outputs || echo "No outputs found."
+          shopt -s nullglob
+          mv .kaggle_outputs/*.png "$ASSETS_DEST"/ 2>/dev/null || true
+          mv .kaggle_outputs/*.jpg "$ASSETS_DEST"/ 2>/dev/null || true
+          mv .kaggle_outputs/*.csv "$ASSETS_DEST"/ 2>/dev/null || true
+
+      - name: Commit & push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add -A
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          commit_msg="chore: mirror Kaggle kernel → $(date -u +'%Y-%m-%d %H:%M:%S')"
+          git commit -m "$commit_msg"
+          git push
