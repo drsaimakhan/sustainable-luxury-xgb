@@ -3,7 +3,16 @@ name: Mirror Kaggle Notebook
 on:
   workflow_dispatch: {}
   schedule:
-    - cron: "0 12 * * 1,4"   # Mon & Thu at 12:00 UTC (change as you like)
+    - cron: "0 12 * * 1,4"    # Mon & Thu at 12:00 UTC — adjust as you like
+
+# Needed so the workflow can push commits back to the repo
+permissions:
+  contents: write
+
+# Prevent overlapping runs (e.g., if a manual run starts while a scheduled one is running)
+concurrency:
+  group: kaggle-mirror
+  cancel-in-progress: true
 
 env:
   KAGGLE_KERNEL: "saimakhan6/sustainable-luxury-purchase-prediction-xg-boost"
@@ -13,6 +22,7 @@ env:
 jobs:
   mirror:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -22,10 +32,11 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install Kaggle CLI
+      - name: Install & verify Kaggle CLI
         run: |
           python -m pip install --upgrade pip
-          pip install kaggle
+          pip install --upgrade kaggle
+          kaggle --version
 
       - name: Configure Kaggle credentials
         run: |
@@ -39,31 +50,35 @@ jobs:
 
       - name: Pull latest notebook (.ipynb) + metadata
         run: |
-          kaggle kernels pull "$KAGGLE_KERNEL" -p "$NOTEBOOK_DEST" --metadata --force
-          # Optional rename example:
+          kaggle kernels pull "$KAGGLE_KERNEL" -p "$NOTEBOOK_DEST" --metadata --overwrite
+          # Optional: rename to a friendlier filename if you prefer
           # mv "$NOTEBOOK_DEST"/sustainable-luxury-purchase-prediction-xg-boost.ipynb \
           #    "$NOTEBOOK_DEST"/Sustainable_Luxury_Purchase_Prediction_XGBoost.ipynb || true
 
-      - name: Download latest Outputs (plots, etc.)
+      - name: Download latest Outputs (plots, CSVs, etc.)
         run: |
           mkdir -p .kaggle_outputs
-          kaggle kernels output "$KAGGLE_KERNEL" -p .kaggle_outputs || echo "No outputs found."
-          shopt -s nullglob
-          mv .kaggle_outputs/*.png "$ASSETS_DEST"/ 2>/dev/null || true
-          mv .kaggle_outputs/*.jpg "$ASSETS_DEST"/ 2>/dev/null || true
-          mv .kaggle_outputs/*.csv "$ASSETS_DEST"/ 2>/dev/null || true
+          # If the kernel has no outputs, this will log and continue
+          if kaggle kernels output "$KAGGLE_KERNEL" -p .kaggle_outputs ; then
+            shopt -s nullglob
+            mv .kaggle_outputs/*.png "$ASSETS_DEST"/ 2>/dev/null || true
+            mv .kaggle_outputs/*.jpg "$ASSETS_DEST"/ 2>/dev/null || true
+            mv .kaggle_outputs/*.jpeg "$ASSETS_DEST"/ 2>/dev/null || true
+            mv .kaggle_outputs/*.csv "$ASSETS_DEST"/ 2>/dev/null || true
+            mv .kaggle_outputs/*.parquet "$ASSETS_DEST"/ 2>/dev/null || true
+          else
+            echo "No outputs found (or kernel outputs are not published)."
+          fi
 
       - name: Commit & push if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
           git add -A
           if git diff --staged --quiet; then
             echo "No changes to commit."
             exit 0
           fi
-
-          commit_msg="chore: mirror Kaggle kernel → $(date -u +'%Y-%m-%d %H:%M:%S')"
-          git commit -m "$commit_msg"
+          git commit -m "chore: mirror Kaggle kernel → $(date -u +'%Y-%m-%d %H:%M:%S')"
           git push
+
