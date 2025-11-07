@@ -95,12 +95,13 @@ The project helps luxury marketers answer:
 
 ## 📊 Visualizations
 
-| Plot | Description |
-|------|--------------|
-| ![Feature Importance](https://github.com/drsaimakhan/sustainable-luxury-xgb/blob/main/assets/feature_importance.png?raw=true) | Top features ranked by XGBoost importance |
-| ![SHAP Summary](https://github.com/drsaimakhan/sustainable-luxury-xgb/blob/main/assets/shap_summary.png?raw=true) | Global feature influence and direction |
-| ![Confusion Matrix](https://github.com/drsaimakhan/sustainable-luxury-xgb/blob/main/assets/confusion_matrix.png?raw=true) | Model performance on hold-out test data |
-| ![Force Plot](https://github.com/drsaimakhan/sustainable-luxury-xgb/blob/main/assets/shap_force_sample.png?raw=true) | Local explanation for one respondent (why predicted “Likely”) |
+| Figure | Description |
+|--------|--------------|
+| ![SHAP Summary](https://github.com/drsaimakhan/sustainable-luxury-xgb/blob/main/assets/shap_summary.png?raw=true) | **Figure 1. SHAP Summary Plot** — Global view showing the most influential predictors on purchase intention. Higher attitude scores (red) push predictions toward “likely to buy,” while lower ones (blue) reduce likelihood. |
+| ![SHAP Dependence](https://github.com/drsaimakhan/sustainable-luxury-xgb/blob/main/assets/shap_dependence_att1.png?raw=true) | **Figure 2. SHAP Dependence Plot for att1** — Relationship between `att1` values and their SHAP impact, colored by `att2`. Highlights nonlinear effects. |
+| ![Local Bar Plot](https://github.com/drsaimakhan/sustainable-luxury-xgb/blob/main/assets/shap_bar_local.png?raw=true) | **Figure 3. Local SHAP Bar Plot** — Feature-level explanation for one respondent, showing positive (red) and negative (blue) contributions. |
+| ![Force Plot](https://github.com/drsaimakhan/sustainable-luxury-xgb/blob/main/assets/shap_force_local.png?raw=true) | **Figure 4. SHAP Force Plot** — Detailed local explanation illustrating how each variable moves the prediction away from the base value. |
+
 ---
 ## 🛠️ How to Reproduce
 
