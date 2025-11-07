@@ -103,3 +103,11 @@ The project helps luxury marketers answer:
 | ![Force Plot](assets/shap_force_sample.png) | Local explanation for one respondent (why predicted “Likely”) |
 
 ---
+## 🛠️ How to Reproduce
+
+### 1️⃣ Clone the repository
+```bash
+git clone https://github.com/<your-username>/sustainable-luxury-xgb.git
+cd sustainable-luxury-xgb
+pip install -r requirements.txt
+jupyter notebook notebooks/Sustainable_Luxury_Purchase_Prediction_XGBoost.ipynb
