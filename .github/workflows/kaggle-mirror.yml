@@ -3,13 +3,11 @@ name: Mirror Kaggle Notebook
 on:
   workflow_dispatch: {}
   schedule:
-    - cron: "0 12 * * 1,4"    # Mon & Thu at 12:00 UTC — adjust as you like
+    - cron: "0 12 * * 1,4"    # Mon & Thu at 12:00 UTC — adjust as needed
 
-# Needed so the workflow can push commits back to the repo
 permissions:
   contents: write
 
-# Prevent overlapping runs (e.g., if a manual run starts while a scheduled one is running)
 concurrency:
   group: kaggle-mirror
   cancel-in-progress: true
@@ -49,16 +47,22 @@ jobs:
           mkdir -p "$NOTEBOOK_DEST" "$ASSETS_DEST"
 
       - name: Pull latest notebook (.ipynb) + metadata
+        shell: bash
         run: |
-          kaggle kernels pull "$KAGGLE_KERNEL" -p "$NOTEBOOK_DEST" --metadata --overwrite
-          # Optional: rename to a friendlier filename if you prefer
-          # mv "$NOTEBOOK_DEST"/sustainable-luxury-purchase-prediction-xg-boost.ipynb \
-          #    "$NOTEBOOK_DEST"/Sustainable_Luxury_Purchase_Prediction_XGBoost.ipynb || true
+          set -euo pipefail
+          NOTEBOOK_SLUG="${KAGGLE_KERNEL##*/}"                      # "sustainable-luxury-purchase-prediction-xg-boost"
+          TARGET_PATH="$NOTEBOOK_DEST/${NOTEBOOK_SLUG}.ipynb"       # notebooks/<slug>.ipynb
+          # Remove any existing notebook so pull won't prompt/abort
+          rm -f "$TARGET_PATH"
+          kaggle kernels pull "$KAGGLE_KERNEL" -p "$NOTEBOOK_DEST" --metadata
+          # Optional: rename to a friendlier name
+          # mv "$TARGET_PATH" "$NOTEBOOK_DEST/Sustainable_Luxury_Purchase_Prediction_XGBoost.ipynb" || true
 
       - name: Download latest Outputs (plots, CSVs, etc.)
+        shell: bash
         run: |
+          set -euo pipefail
           mkdir -p .kaggle_outputs
-          # If the kernel has no outputs, this will log and continue
           if kaggle kernels output "$KAGGLE_KERNEL" -p .kaggle_outputs ; then
             shopt -s nullglob
             mv .kaggle_outputs/*.png "$ASSETS_DEST"/ 2>/dev/null || true
@@ -81,4 +85,3 @@ jobs:
           fi
           git commit -m "chore: mirror Kaggle kernel → $(date -u +'%Y-%m-%d %H:%M:%S')"
           git push
-
