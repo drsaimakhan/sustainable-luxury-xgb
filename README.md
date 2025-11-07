@@ -97,10 +97,10 @@ The project helps luxury marketers answer:
 
 | Plot | Description |
 |------|--------------|
-| ![Feature Importance](assets/feature_importance.png) | Top features ranked by XGBoost importance |
-| ![SHAP Summary](assets/shap_summary.png) | Global feature influence and direction |
-| ![Confusion Matrix](assets/confusion_matrix.png) | Model performance on hold-out test data |
-| ![Force Plot](assets/shap_force_sample.png) | Local explanation for one respondent (why predicted “Likely”) |
+| ![Feature Importance](https://github.com/saimakhan6/sustainable-luxury-xgb/blob/main/assets/feature_importance.png?raw=true) | Top features ranked by XGBoost importance |
+| ![SHAP Summary](https://github.com/saimakhan6/sustainable-luxury-xgb/blob/main/assets/shap_summary.png?raw=true) | Global feature influence and direction |
+| ![Confusion Matrix](https://github.com/saimakhan6/sustainable-luxury-xgb/blob/main/assets/confusion_matrix.png?raw=true) | Model performance on hold-out test data |
+| ![Force Plot](https://github.com/saimakhan6/sustainable-luxury-xgb/blob/main/assets/shap_force_sample.png?raw=true) | Local explanation for one respondent (why predicted “Likely”) |
 
 ---
 ## 🛠️ How to Reproduce
