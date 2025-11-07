@@ -2,112 +2,110 @@
 
 [![View on Kaggle](https://img.shields.io/badge/View%20Notebook-Kaggle-blue?logo=kaggle)](https://www.kaggle.com/code/saimakhan6/sustainable-luxury-purchase-prediction-xg-boost)
 [![Python 3.11](https://img.shields.io/badge/Python-3.11-blue)](https://www.python.org/)
-[![XGBoost](https://img.shields.io/badge/Model-XGBoost-orange)](https://xgboost.readthedocs.io/)
-[![Explainability](https://img.shields.io/badge/Explainability-Tool-SHAP-green)](https://shap.readthedocs.io/)
+[![Model: XGBoost](https://img.shields.io/badge/Model-XGBoost-orange)](https://xgboost.readthedocs.io/)
+[![Explainability: SHAP](https://img.shields.io/badge/Explainability-SHAP-green)](https://shap.readthedocs.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 ---
 
 ## 🧭 Overview
 
-Luxury is evolving. Consumers today don’t just buy *status* — they buy *values*.  
-This project explores **what drives a consumer’s intention to purchase sustainable luxury products**, using real survey data and explainable AI techniques.
+Luxury is evolving — consumers now seek **values alongside status**.  
+This project analyzes *what drives the intention to purchase sustainable luxury products* using machine learning and explainable AI.
 
-We build a robust **XGBoost classifier** to predict purchase intention and use **SHAP (SHapley Additive exPlanations)** to unpack *why* the model makes its predictions.
+An **XGBoost classifier** predicts purchase intention from survey data, while **SHAP (SHapley Additive exPlanations)** reveals which attitudes, values, and personality traits shape those predictions.
 
 ---
 
 ## 🎯 Business Objective
 
-**Goal:** Identify the psychological and perceptual drivers behind *sustainable luxury purchase intention* to guide:
-- Brand strategy & communication
-- Market segmentation
-- Product and pricing decisions
-
-The project helps luxury marketers answer:
-> “Which attitudes, values, and perceptions truly motivate a sustainable luxury purchase — and which ones don’t?”
+**Goal:** Understand the psychological and perceptual factors that influence a consumer’s likelihood of buying sustainable luxury.  
+Insights help brands optimize:
+- **Targeting:** Identify high-intent consumers  
+- **Messaging:** Emphasize sustainability authenticity and craftsmanship  
+- **Product & pricing:** Balance eco-value with perceived luxury  
 
 ---
 
 ## 🧩 Dataset
 
-| Aspect | Details |
+| Aspect | Description |
 |:--|:--|
 | **Source** | Consumer survey (500 respondents) |
 | **Target variable** | `purchase_intention` (1 = Likely to buy sustainable luxury) |
-| **Features** | Attitudinal and demographic predictors — e.g. sustainability attitude, perceived quality, price sensitivity, social influence, environmental concern |
-| **Type** | Tabular survey data (mixed categorical and numeric) |
-
-> Note: The dataset is anonymized and used for educational/research purposes.  
-> Raw data is **not included** in this repository for privacy reasons.
+| **Predictors** | Attitudes (`att1–att5`), Big-Five personality scores, motivational drivers, demographics |
+| **Type** | Tabular survey data (categorical + numeric) |
+| **Privacy** | Anonymized data used solely for research/educational purposes |
 
 ---
 
 ## ⚙️ Methodology
 
 ### 1️⃣ Data Preprocessing
-- Missing value imputation (`SimpleImputer`)
-- Categorical encoding (`OneHotEncoder`)
-- Feature scaling (`StandardScaler`)
-- Combined via `ColumnTransformer` in a clean scikit-learn pipeline
+- Missing values handled with `SimpleImputer`  
+- Categorical encoding via `OneHotEncoder`  
+- Scaling with `StandardScaler`  
+- Combined through a `ColumnTransformer` in a single pipeline  
 
 ### 2️⃣ Model Building
-- **Model:** XGBoost classifier  
-- **Hyperparameters:** tuned manually for interpretability (depth, learning rate, regularization)  
-- **Evaluation:** Accuracy, F1-score, ROC-AUC
+- Algorithm: **XGBoost Classifier**  
+- Parameters tuned for interpretability (depth = 4, learning rate = 0.06, λ = 1.0)  
+- Evaluation metrics: Accuracy, F1-score, ROC-AUC  
 
-### 3️⃣ Model Explainability
-- **SHAP** is used to quantify feature contributions to each prediction
-- Global feature importance (summary plot)
-- Local explanations (force plot for an individual respondent)
+### 3️⃣ Explainability
+- **SHAP** used to compute global and local feature contributions  
+- Visualization suite includes summary, dependence, bar, and force plots  
 
 ---
 
-## 📈 Results & Insights
+## 📈 Results
 
 | Metric | Score |
 |:--|--:|
-| **Accuracy** | ~87% |
-| **F1-score** | ~0.84 |
+| **Accuracy** | ~0.87 |
+| **F1-Score** | ~0.84 |
 | **ROC-AUC** | ~0.90 |
 
-### 🔍 Top Predictors
-| Rank | Feature | Interpretation |
-|:--|:--|:--|
-| 1 | Sustainability Attitude | Strongest driver — eco-conscious consumers show higher purchase intent |
-| 2 | Perceived Quality | Quality remains central — sustainability adds *value*, not replaces luxury |
-| 3 | Social Influence | Peer approval and social norms shape acceptance of “green luxury” |
-| 4 | Price Sensitivity | Moderately negative — price-conscious buyers less likely to purchase |
-| 5 | Brand Credibility | Trust and authenticity enhance sustainable perception |
+**Top Predictors**
+1. Attitudinal variables (`att1–att5`)
+2. Perceived quality
+3. Social influence
+4. Motivational drivers
+5. Personality openness & agreeableness
 
 ---
 
-## 🧠 Key Takeaways for Managers
+## 🧠 Model Explainability & Visualizations
 
-- **Consumer mindsets are hybrid:** They seek luxury that aligns with values without sacrificing quality.
-- **Authenticity > slogans:** Verified eco-claims, craftsmanship, and transparency outperform generic “green” messaging.
-- **Target segment:** High sustainability awareness + quality orientation = ideal audience for premium eco-luxury lines.
-- **Communication strategy:**  
-  - Emphasize craftsmanship and environmental benefit together.  
-  - Use credible messengers (experts, influencers) to reinforce trust.
+Understanding *why* the model predicts a consumer’s intention is as critical as its accuracy.  
+We used **SHAP** to interpret both *global importance* and *individual-level reasoning* behind predictions.
 
----
-
-## 📊 Visualizations
+These plots demonstrate how each variable contributes to or detracts from purchase intention.
 
 | Figure | Description |
 |--------|--------------|
-| ![SHAP Summary](https://github.com/drsaimakhan/sustainable-luxury-xgb/blob/main/assets/shap_summary.png?raw=true) | **Figure 1. SHAP Summary Plot** — Global view showing the most influential predictors on purchase intention. Higher attitude scores (red) push predictions toward “likely to buy,” while lower ones (blue) reduce likelihood. |
-| ![SHAP Dependence](https://github.com/drsaimakhan/sustainable-luxury-xgb/blob/main/assets/shap_dependence_att1.png?raw=true) | **Figure 2. SHAP Dependence Plot for att1** — Relationship between `att1` values and their SHAP impact, colored by `att2`. Highlights nonlinear effects. |
-| ![Local Bar Plot](https://github.com/drsaimakhan/sustainable-luxury-xgb/blob/main/assets/shap_bar_local.png?raw=true) | **Figure 3. Local SHAP Bar Plot** — Feature-level explanation for one respondent, showing positive (red) and negative (blue) contributions. |
-| ![Force Plot](https://github.com/drsaimakhan/sustainable-luxury-xgb/blob/main/assets/shap_force_local.png?raw=true) | **Figure 4. SHAP Force Plot** — Detailed local explanation illustrating how each variable moves the prediction away from the base value. |
+| ![SHAP Summary](https://github.com/drsaimakhan/sustainable-luxury-xgb/blob/main/assets/shap_summary.png?raw=true) | **Figure 1 – SHAP Summary Plot**: Global importance of predictors. Higher attitude scores (red) push predictions toward “likely to buy,” while lower ones (blue) reduce intent. |
+| ![SHAP Dependence](https://github.com/drsaimakhan/sustainable-luxury-xgb/blob/main/assets/shap_dependence_att1.png?raw=true) | **Figure 2 – SHAP Dependence Plot (att1 vs att2)**: Shows positive nonlinear relationship between attitude and predicted intent. |
+| ![Local Bar Plot](https://github.com/drsaimakhan/sustainable-luxury-xgb/blob/main/assets/shap_bar_local.png?raw=true) | **Figure 3 – Local SHAP Bar Plot**: Individual explanation highlighting which features increased (red) or decreased (blue) predicted intent. |
+| ![Force Plot](https://github.com/drsaimakhan/sustainable-luxury-xgb/blob/main/assets/shap_force_local.png?raw=true) | **Figure 4 – SHAP Force Plot**: Visualization of a single prediction; shows how features push the model output above or below the base value. |
+
+### 🔍 Managerial Interpretation
+
+- **Attitudinal factors** are the most powerful levers of sustainable purchase intent.  
+- **Motivational and personality drivers** add psychological nuance.  
+- Local SHAP explanations enable segment-level or personalized strategies.  
+
+Together, these explainability insights translate raw ML output into actionable marketing intelligence.
 
 ---
-## 🛠️ How to Reproduce
 
-### 1️⃣ Clone the repository
-```bash
-git clone https://github.com/<your-username>/sustainable-luxury-xgb.git
-cd sustainable-luxury-xgb
-pip install -r requirements.txt
-jupyter notebook notebooks/Sustainable_Luxury_Purchase_Prediction_XGBoost.ipynb
+## 💼 Strategic Takeaways
+
+- **Authenticity > slogans:** verified eco-claims, craftsmanship, and transparency outperform generic “green” messaging.  
+- **High sustainability + quality orientation = prime target segment.**  
+- **Channel strategy:** use credible voices (experts, creators) to reinforce trust and social validation.  
+
+---
+
+## 🧮 Repository Structure
+
