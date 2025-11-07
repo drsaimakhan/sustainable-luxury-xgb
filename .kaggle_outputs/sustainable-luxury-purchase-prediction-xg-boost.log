@@ -1,0 +1,79 @@
+[{"stream_name":"stderr","time":7.761476914,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.761556097,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.761562814,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.761566373,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":8.414845642,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.414948395,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.414971567,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.414977101,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":13.055324984,"data":"/kaggle/input/sustainable-luxury-consumer-survey/Sustainable_Luxury_Survey_500.xlsx\n"}
+,{"stream_name":"stdout","time":15.166189437,"data":"Candidate paths: ['/kaggle/working/Sustainable_Luxury_Survey_500.xlsx', '/kaggle/working/sustainable_luxury_survey.xlsx', '/kaggle/working/Sustainable_Luxury_Survey.xlsx', '/kaggle/input/sustainable-luxury-consumer-survey/Sustainable_Luxury_Survey_500.xlsx']\n"}
+,{"stream_name":"stdout","time":16.00816874,"data":"Loaded: /kaggle/input/sustainable-luxury-consumer-survey/Sustainable_Luxury_Survey_500.xlsx shape=(500, 75)\n"}
+,{"stream_name":"stdout","time":16.008199689,"data":"Columns: ['respondent_id', 'o1', 'o2', 'o3', 'o4', 'o5', 'o6', 'o7', 'o8', 'o9', 'o10', 'c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9', 'e1', 'e2', 'e3', 'e4', 'e5', 'e6', 'e7', 'e8', 'a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8', 'n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7', 'n8', 'n9', 'age_group', 'gender', 'income_level', 'region', 'att1', 'att2', 'att3', 'att4', 'att5', 'pi1', 'pi2', 'md1', 'md2', 'md3', 'stellamccartney_sustainability', 'stellamccartney_prestige', 'gucci_sustainability', 'gucci_prestige', 'fendi_sustainability', 'fendi_prestige', 'chanel_sustainability', 'chanel_prestige', 'openness_score', 'conscientiousness_score', 'extraversion_score', 'agreeableness_score', 'neuroticism_score', 'sustainability_attitude_score', 'purchase_intention_score', 'motivational_drivers_score']\n"}
+,{"stream_name":"stdout","time":16.008210559,"data":"Targets -\u003e sustainability: sustainability_attitude_score | purchase: purchase_intention_score\n"}
+,{"stream_name":"stdout","time":16.00821685,"data":"Numeric features: ['o1', 'o2', 'o3', 'o4', 'o5', 'o6', 'o7', 'o8', 'o9', 'o10'] ... (68 total)\n"}
+,{"stream_name":"stdout","time":16.008222333,"data":"Categorical features: ['age_group', 'gender', 'income_level', 'region']\n"}
+,{"stream_name":"stdout","time":16.008228194,"data":"\n"}
+,{"stream_name":"stdout","time":16.008233199,"data":"=== REGRESSION RESULTS ===\n"}
+,{"stream_name":"stdout","time":17.101424879,"data":"[sustainability] MAE=0.081 | RMSE=0.119 | R^2=0.954\n"}
+,{"stream_name":"stdout","time":23.874640643,"data":"[sustainability] 5-fold CV R^2: [0.958 0.954 0.955 0.957 0.964] | mean=0.958\n"}
+,{"stream_name":"stdout","time":24.685234562,"data":"[purchase] MAE=0.001 | RMSE=0.003 | R^2=1.000\n"}
+,{"stream_name":"stdout","time":27.109949524,"data":"[purchase] 5-fold CV R^2: [1.    0.999 0.989 1.    1.   ] | mean=0.998\n"}
+,{"stream_name":"stdout","time":27.109991942,"data":"\n"}
+,{"stream_name":"stdout","time":27.109998911,"data":"=== CLASSIFICATION RESULTS (Low/Med/High) ===\n"}
+,{"stream_name":"stdout","time":28.100911991,"data":"[sustainability] Acc=0.880 | F1_w=0.877\n"}
+,{"stream_name":"stdout","time":28.10098303,"data":"\n"}
+,{"stream_name":"stdout","time":28.10098796,"data":"Classification report (sustainability):\n"}
+,{"stream_name":"stdout","time":28.100990693,"data":"               precision    recall  f1-score   support\n"}
+,{"stream_name":"stdout","time":28.100993335,"data":"\n"}
+,{"stream_name":"stdout","time":28.100995698,"data":"         Low       0.91      0.89      0.90        36\n"}
+,{"stream_name":"stdout","time":28.100998129,"data":"         Med       0.85      0.74      0.79        31\n"}
+,{"stream_name":"stdout","time":28.101000519,"data":"        High       0.87      1.00      0.93        33\n"}
+,{"stream_name":"stdout","time":28.101003022,"data":"\n"}
+,{"stream_name":"stdout","time":28.101005615,"data":"    accuracy                           0.88       100\n"}
+,{"stream_name":"stdout","time":28.101008088,"data":"   macro avg       0.88      0.88      0.87       100\n"}
+,{"stream_name":"stdout","time":28.101010544,"data":"weighted avg       0.88      0.88      0.88       100\n"}
+,{"stream_name":"stdout","time":28.10101312,"data":"\n"}
+,{"stream_name":"stdout","time":29.092137446,"data":"[purchase] Acc=0.940 | F1_w=0.920\n"}
+,{"stream_name":"stdout","time":29.093780402,"data":"\n"}
+,{"stream_name":"stdout","time":29.093799051,"data":"Classification report (purchase):\n"}
+,{"stream_name":"stdout","time":29.093803987,"data":"               precision    recall  f1-score   support\n"}
+,{"stream_name":"stdout","time":29.093808136,"data":"\n"}
+,{"stream_name":"stdout","time":29.093811811,"data":"         Low       1.00      1.00      1.00        63\n"}
+,{"stream_name":"stdout","time":29.093816138,"data":"         Med       0.83      1.00      0.91        30\n"}
+,{"stream_name":"stdout","time":29.093819722,"data":"        High       1.00      0.14      0.25         7\n"}
+,{"stream_name":"stdout","time":29.093823185,"data":"\n"}
+,{"stream_name":"stdout","time":29.093827228,"data":"    accuracy                           0.94       100\n"}
+,{"stream_name":"stdout","time":29.09383117,"data":"   macro avg       0.94      0.71      0.72       100\n"}
+,{"stream_name":"stdout","time":29.093835366,"data":"weighted avg       0.95      0.94      0.92       100\n"}
+,{"stream_name":"stdout","time":29.093839442,"data":"\n"}
+,{"stream_name":"stdout","time":29.093843362,"data":"\n"}
+,{"stream_name":"stdout","time":29.093846988,"data":"=== FEATURE IMPORTANCES (approximate) ===\n"}
+,{"stream_name":"stdout","time":30.280037889,"data":"\n"}
+,{"stream_name":"stdout","time":30.280073747,"data":"Top features for [sustainability]:\n"}
+,{"stream_name":"stdout","time":31.594211846,"data":"\n"}
+,{"stream_name":"stdout","time":31.594256724,"data":"Top features for [purchase]:\n"}
+,{"stream_name":"stdout","time":34.217824636,"data":"Saved models to: /kaggle/working/models\n"}
+,{"stream_name":"stdout","time":34.22108129,"data":"\n"}
+,{"stream_name":"stdout","time":34.221105524,"data":"=== BASIC EDA ===\n"}
+,{"stream_name":"stdout","time":34.221109264,"data":"Shape: (500, 75)\n"}
+,{"stream_name":"stdout","time":34.221112207,"data":"\n"}
+,{"stream_name":"stdout","time":34.221115063,"data":"Numeric summary:\n"}
+,{"stream_name":"stdout","time":34.233790354,"data":"\n"}
+,{"stream_name":"stdout","time":34.233832489,"data":"Categorical summary:\n"}
+,{"stream_name":"stderr","time":59.09752659,"data":"/usr/local/lib/python3.11/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":59.097599259,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":59.156778544,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":59.525807392,"data":"[NbConvertApp] Writing 741728 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":62.614754246,"data":"/usr/local/lib/python3.11/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":62.614802421,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":62.644799293,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":63.639774186,"data":"[NbConvertApp] Support files will be in __results___files/\n"}
+,{"stream_name":"stderr","time":63.639816227,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":63.64010388,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":63.64029098,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":63.640585278,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":63.640752193,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":63.64105247,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":63.641294664,"data":"[NbConvertApp] Writing 666568 bytes to __results__.html\n"}
+]

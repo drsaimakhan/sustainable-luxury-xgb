@@ -1,0 +1,24 @@
+{
+  "id": "saimakhan6/sustainable-luxury-purchase-prediction-xg-boost",
+  "id_no": 98328152,
+  "title": "Sustainable Luxury Purchase Prediction- XG Boost",
+  "code_file": "sustainable-luxury-purchase-prediction-xg-boost.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": false,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "keywords": [
+    "xgboost",
+    "marketing",
+    "python",
+    "random forest"
+  ],
+  "dataset_sources": [
+    "saimakhan6/sustainable-luxury-consumer-survey"
+  ],
+  "kernel_sources": [],
+  "competition_sources": [],
+  "model_sources": []
+}
