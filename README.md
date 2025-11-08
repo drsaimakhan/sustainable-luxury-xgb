@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/drsaimakhan/sustainable-luxury-xgb/blob/main/cover.png?raw=true" width="600">
+</p>
+
 # 🌿 Sustainable Luxury Purchase Prediction (XGBoost + SHAP)
 
 [![View on Kaggle](https://img.shields.io/badge/View%20Notebook-Kaggle-blue?logo=kaggle)](https://www.kaggle.com/code/saimakhan6/sustainable-luxury-purchase-prediction-xg-boost)
